@@ -60,7 +60,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>hi.com.vidmotlokaverkefni/hi.com.vidmotlokaverkefni.HelloApplication</mainClass>
+                            <mainClass>hi.com.vidmotlokaverkefni/vidmot.HomeApplication</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

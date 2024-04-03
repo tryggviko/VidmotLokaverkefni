@@ -3,6 +3,6 @@ module hi.com.vidmotlokaverkefni {
     requires javafx.fxml;
 
 
-    opens hi.com.vidmotlokaverkefni to javafx.fxml;
-    exports hi.com.vidmotlokaverkefni;
+    opens vidmot to javafx.fxml;
+    exports vidmot;
 }
