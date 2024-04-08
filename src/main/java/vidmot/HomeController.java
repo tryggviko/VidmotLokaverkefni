@@ -33,6 +33,14 @@ public class HomeController {
         }
     }
 
+    public void toPlaylists(ActionEvent event){
+        try {
+            sceneSwitcher.switchScene(event, "playlist-view.fxml");
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
 
     public void createPlaylist(ActionEvent event) {
 
