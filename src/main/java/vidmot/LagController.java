@@ -14,10 +14,7 @@ import javafx.scene.media.MediaPlayer;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class LagController implements Initializable {
 
@@ -53,6 +50,8 @@ public class LagController implements Initializable {
 
 
 
+
+
     //aðferðin frá SceneSwitcher
     SceneSwitcher sceneSwitcher = new SceneSwitcher();
     @FXML
@@ -83,7 +82,7 @@ public class LagController implements Initializable {
         mediaPlayer = new MediaPlayer(media);
         songName.setText(songs.get(songNum).getName()  );
         mediaPlayer.play();
-
+        startTimer();
     }
 
     public void prevSong(){
@@ -113,7 +112,7 @@ public class LagController implements Initializable {
             songName.setText(songs.get(songNum).getName()  );
         }
         mediaPlayer.play();
-
+        startTimer();
     }
 
     public void nextSong(){
@@ -144,6 +143,7 @@ public class LagController implements Initializable {
             songName.setText(songs.get(songNum).getName()  );
         }
         mediaPlayer.play();
+        startTimer();
     }
 
     public void playPause(){
