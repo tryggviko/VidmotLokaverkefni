@@ -11,9 +11,9 @@ public class HomeController {
     SceneSwitcher sceneSwitcher = new SceneSwitcher();
 
     @FXML
-    protected void onHelloButtonClick(ActionEvent event) {
+    public void onHelloButtonClick(ActionEvent event) {
         try {
-            sceneSwitcher.switchScene(event, "askrifandi-view.fxml");
+            sceneSwitcher.switchScene(event, "lag-view.fxml");
         } catch (IOException e){
             e.printStackTrace();
         }
