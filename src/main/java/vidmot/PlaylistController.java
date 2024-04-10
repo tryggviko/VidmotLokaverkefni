@@ -6,7 +6,9 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import vidmot.SceneSwitcher;
 import vinnsla.Playlist;
+import vinnsla.PlaylistManager;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -19,22 +21,42 @@ public class PlaylistController {
 
     private Playlist currentPlaylist;
 
-    private static final String PLAYLIST_FOLDER = "playlists";
+    private static final String PLAYLISTS_DIRECTORY = "playlists";
+    private String playlistFileName;
+
     private String playlistFilePath;
 
-    // Set the file path for the current playlist
+    // Set the file name for the current playlist
+    public void setPlaylistFileName(String playlistFileName) {
+        this.playlistFileName = playlistFileName;
+    }
+
     public void setPlaylistFilePath(String playlistFilePath) {
         this.playlistFilePath = playlistFilePath;
     }
 
-    // Set the playlist and load its data if the file path is provided
+    public void initialize() {
+        loadPlaylistFromFile();
+    }
+
+    private void loadPlaylistFromFile() {
+        // Load playlist data from file
+        List<Playlist> playlists = PlaylistManager.loadPlaylists();
+        if (!playlists.isEmpty()) {
+            // Assuming the first playlist is the current playlist
+            currentPlaylist = playlists.get(0);
+            updateSongsList();
+        }
+    }
+
+    // Set the playlist and load its data if the file name is provided
     public void setPlaylist(Playlist playlist) {
         if (playlist == null) {
             this.currentPlaylist = new Playlist("New Playlist");
         } else {
             this.currentPlaylist = playlist;
-            if (playlistFilePath != null && !playlistFilePath.isEmpty()) {
-                loadPlaylistDataFromFile(playlistFilePath);
+            if (playlistFileName != null && !playlistFileName.isEmpty()) {
+                loadPlaylistDataFromFile(playlistFileName);
             }
         }
         updateSongsList();
@@ -50,23 +72,16 @@ public class PlaylistController {
     }
 
     // Load playlist data from file
-    private void loadPlaylistDataFromFile(String playlistFilePath) {
-        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(playlistFilePath))) {
-            // Read the list of song paths
-            List<String> songPaths = (List<String>) inputStream.readObject();
-
-            // Read the playlist object
-            Playlist loadedPlaylist = (Playlist) inputStream.readObject();
-
-            // Set the song paths to the loaded playlist
-            loadedPlaylist.setSongPaths(songPaths);
-
-            // Set the currentPlaylist to the loaded playlist
-            currentPlaylist = loadedPlaylist;
-
-            // Update UI (if needed)
-            updateSongsList();
-        } catch (IOException | ClassNotFoundException e) {
+    private void loadPlaylistDataFromFile(String playlistFileName) {
+        List<String> songPaths = new ArrayList<>();
+        File playlistFile = new File(PLAYLISTS_DIRECTORY, playlistFileName);
+        try (BufferedReader reader = new BufferedReader(new FileReader(playlistFile))) {
+            String songPath;
+            while ((songPath = reader.readLine()) != null) {
+                songPaths.add(songPath);
+            }
+            currentPlaylist.setSongPaths(songPaths);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -103,37 +118,21 @@ public class PlaylistController {
                 currentPlaylist.addSong(file.getAbsolutePath());
                 addSongToVBox(file.getName());
             }
-            savePlaylistToFile(currentPlaylist, generatePlaylistFilePath(currentPlaylist));
+            savePlaylistToFile(currentPlaylist);
         }
     }
 
 
     // Save the playlist to a file
-    private void savePlaylistToFile(Playlist playlist, String fileName) {
-        String completeFilePath = PLAYLIST_FOLDER + File.separator + fileName;
-        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(completeFilePath))) {
-            // Write the playlist object
-            outputStream.writeObject(playlist);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    // Generate a file path for the playlist
-    private String generatePlaylistFilePath(Playlist playlist) {
-        if (playlistFilePath != null && !playlistFilePath.isEmpty()) {
-            return playlistFilePath;
-        } else {
-            return playlist.getName() + ".dat"; // Use playlist name as file name
-        }
+    private void savePlaylistToFile(Playlist playlist) {
+        List<Playlist> playlists = new ArrayList<>();
+        playlists.add(playlist);
+        PlaylistManager.savePlaylists(playlists);
     }
 
     // Add a song button to the VBox
     private void addSongToVBox(String songName) {
         Button songButton = new Button(songName);
         songsVBox.getChildren().add(songButton);
-
     }
-
 }
