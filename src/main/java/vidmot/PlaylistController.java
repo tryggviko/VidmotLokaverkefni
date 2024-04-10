@@ -141,6 +141,7 @@ public class PlaylistController {
                 addSongToVBox(file.getName());
             }
             savePlaylistToFile(currentPlaylist);
+            updateSongsList();
         }
     }
 

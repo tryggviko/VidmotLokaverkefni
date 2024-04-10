@@ -66,20 +66,30 @@ public class LagController {
 
     @FXML
     private void nextSong(ActionEvent event) {
+        if (mediaPlayer != null){
+            if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING){
+                mediaPlayer.stop();
+            }
+        }
         if (currentSongIndex < songPaths.size() - 1) {
             currentSongIndex++;
         } else {
-            currentSongIndex = 0; // Loop back to the beginning if reached the end of the playlist
+            currentSongIndex = 0;
         }
         playSong();
     }
 
     @FXML
     private void prevSong(ActionEvent event) {
+        if (mediaPlayer != null){
+            if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING){
+                mediaPlayer.stop();
+            }
+        }
         if (currentSongIndex > 0) {
             currentSongIndex--;
         } else {
-            currentSongIndex = songPaths.size() - 1; // Go to the last song if at the beginning of the playlist
+            currentSongIndex = songPaths.size() - 1;
         }
         playSong();
     }
