@@ -17,13 +17,19 @@ public class PlaylistController {
 
     @FXML
     private VBox songsVBox;
-
     private Playlist currentPlaylist;
+
 
     //Playlist mapan sem mun geyma playlistana
     private static final String PLAYLISTS = "playlists";
     private String playlistFileName;
     private String playlistFilePath;
+
+    private SceneSwitcher sceneSwitcher;
+
+    public PlaylistController() {
+        this.sceneSwitcher = new SceneSwitcher();
+    }
 
     // setur slóðina á current playlista
     public void setPlaylistFilePath(String playlistFilePath) {
@@ -32,6 +38,16 @@ public class PlaylistController {
 
     public void initialize() {
         loadPlaylistFromFile();
+    }
+
+
+    // eventið fyrir lögin
+    private void songButtonClick(ActionEvent event, String songPath) {
+        try {
+            sceneSwitcher.switchToLag(event, currentPlaylist);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // Hleður gögnunum frá núverandi playlista (lögum)
@@ -67,6 +83,7 @@ public class PlaylistController {
         for (String songPath : currentPlaylist.getSongPaths()) {
             String fileName = new File(songPath).getName();
             Button songButton = new Button(fileName);
+            songButton.setOnAction(event -> songButtonClick(event, songPath));
             songsVBox.getChildren().add(songButton);
         }
     }

@@ -44,5 +44,19 @@ public class SceneSwitcher {
         stage.show();
     }
 
+    // Switch to the lag (media player) scene
+    public void switchToLag(ActionEvent event, Playlist playlist) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("lag-view.fxml"));
+        Parent root = loader.load();
+
+        LagController lagController = loader.getController();
+        lagController.setPlaylist(playlist, playlist.getSongPaths());
+
+        Scene scene = new Scene(root);
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+
 
 }
