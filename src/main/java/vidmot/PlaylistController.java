@@ -66,7 +66,9 @@ public class PlaylistController {
     private void updateSongsList() {
         songsVBox.getChildren().clear();
         for (String songPath : currentPlaylist.getSongPaths()) {
-            Button songButton = new Button(songPath);
+            // Extract the file name from the absolute path
+            String fileName = new File(songPath).getName();
+            Button songButton = new Button(fileName);
             songsVBox.getChildren().add(songButton);
         }
     }
