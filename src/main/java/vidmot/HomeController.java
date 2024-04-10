@@ -3,8 +3,12 @@ package vidmot;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import vinnsla.Playlist;
 import vinnsla.PlaylistManager;
 
@@ -22,11 +26,40 @@ public class HomeController {
     @FXML
     private TextField playlistTextField;
 
+    @FXML
+    private Button profileButton;
+
+    @FXML
+    private ImageView profileImage;
+
+    @FXML
+    private Label usernamLabel;
+
     private final SceneSwitcher sceneSwitcher = new SceneSwitcher();
 
     public void initialize() {
         updatePlaylistsContain();
     }
+
+
+    @FXML
+    private void selectProfilePicture(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Profile Picture");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif", "*.jpeg")
+        );
+
+        // Show open file dialog
+        File selectedFile = fileChooser.showOpenDialog(profileImage.getScene().getWindow());
+        if (selectedFile != null) {
+            // Load the selected image into the ImageView
+            Image image = new Image(selectedFile.toURI().toString());
+            profileButton.setVisible(false);
+            profileImage.setImage(image);
+        }
+    }
+
 
     //aðferðin sem býr til playlistan
     @FXML

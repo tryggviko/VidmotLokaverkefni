@@ -60,5 +60,4 @@ public class AskrifandiController {
             labelLogIn.setText("No numbers");
     }
 
-
 }

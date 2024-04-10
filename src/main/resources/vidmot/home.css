@@ -1,9 +1,19 @@
 .rounded-button {
-    -fx-background-radius: 180;
-    -fx-background-color: FCA311;
-    -fx-min-width: 100px; /* Set minimum width */
-    -fx-min-height: 100px; /* Set minimum height */
-    -fx-max-width: 100px; /* Set maximum width */
-    -fx-max-height: 100px; /* Set maximum height */
-
+    -fx-background-radius: 358;
+    -fx-min-width: 70;
+    -fx-min-height: 70;
+    -fx-max-width: 70;
+    -fx-max-height: 70;
 }
+.color-button{
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+    -fx-border-radius: 360;
+}
+.text-field {
+    -fx-border-color: #ffba00;
+    -fx-border-width: 2px;
+}
+
+
