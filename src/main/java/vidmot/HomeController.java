@@ -66,5 +66,10 @@ public class HomeController {
 
     //eftir að tengja og forrita
     public void toLogInScreen(ActionEvent event) {
+        try {
+            sceneSwitcher.switchScene(event, "askrifandi-view.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

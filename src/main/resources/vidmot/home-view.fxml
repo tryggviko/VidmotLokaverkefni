@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -7,22 +8,32 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vidmot.HomeController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: gray;" stylesheets="@home.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vidmot.HomeController">
    <children>
-      <ScrollPane fitToHeight="true" fitToWidth="true">
-         <VBox prefHeight="400.0" prefWidth="267.0">
-            <children>
-               <Label fx:id="playlistTitle" text="Playlist Manager" />
+      <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="400.0" prefWidth="311.0">
+         <content>
+            <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: gray;">
+               <children>
+                  <Label text="Label" />
+                  <Button mnemonicParsing="false" onAction="#toLogInScreen" text="Log In" />
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+      <VBox prefHeight="400.0" prefWidth="267.0">
+         <children>
+            <Label fx:id="playlistTitle" text="Playlist Manager" />
 
                <ScrollPane fx:id="playlistScrollPane" fitToHeight="true" fitToWidth="true">
-                  <VBox fx:id="playlistContainer" prefHeight="200.0" prefWidth="250.0">
+               <VBox fx:id="playlistContainer" prefHeight="200.0" prefWidth="250.0">
                   </VBox>
-               </ScrollPane>
-               <TextField fx:id="playlistTextField" promptText="Enter playlist name" />
-               <Button fx:id="createPlaylistButton" onAction="#createPlaylist" text="Create Playlist" />
-               <Button mnemonicParsing="false" onAction="#toLogInScreen" text="Log In" />
-            </children>
-         </VBox>
-      </ScrollPane>
+            </ScrollPane>
+            <TextField fx:id="playlistTextField" promptText="Enter playlist name" />
+            <Button fx:id="createPlaylistButton" onAction="#createPlaylist" styleClass="rounded-button" stylesheets="@home.css" text="Create Playlist">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets></Button>
+         </children>
+      </VBox>
    </children>
 </HBox>

@@ -11,6 +11,7 @@ import javafx.scene.media.MediaPlayer;
 import vinnsla.Playlist;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class LagController {
@@ -93,6 +94,11 @@ public class LagController {
 
     @FXML
     private void switchToHome(ActionEvent event) {
-        // Implement logic to switch back to the home view
+        try {
+            SceneSwitcher sceneSwitcher = new SceneSwitcher();
+            sceneSwitcher.switchScene(event, "home-view.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

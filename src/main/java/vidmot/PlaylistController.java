@@ -2,6 +2,7 @@ package vidmot;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -155,5 +156,40 @@ public class PlaylistController {
     private void addSongToVBox(String songName) {
         Button songButton = new Button(songName);
         songsVBox.getChildren().add(songButton);
+    }
+
+    private void alert(){
+
+    }
+
+    //aðferin sem sér um að deleta playlistanum
+    @FXML
+    public void deletePlaylist(ActionEvent event) {
+        if (currentPlaylist == null) {
+            System.out.println("No playlist selected to delete!");
+            return;
+        }
+
+        //Alert notað áður en eytt er playlistanum
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("delete Playlist");
+        alert.setHeaderText("do you want to delete the playlist?");
+        alert.setContentText("will be deleted permanently");
+        alert.showAndWait().ifPresent(response -> {
+            if (response == javafx.scene.control.ButtonType.OK) {
+                // mapan með playlistanum og current playlist fundin
+                File playlistFile = new File(PlaylistManager.PLAYLISTSFOLDER, currentPlaylist.getName() + ".ser");
+                if (playlistFile.exists()) {
+                    playlistFile.delete();
+                }
+
+                PlaylistManager.removePlaylist(currentPlaylist);
+
+                // eit og skipt um scene
+                songsVBox.getChildren().clear();
+                currentPlaylist = null;
+                switchToHome(event);
+            }
+        });
     }
 }

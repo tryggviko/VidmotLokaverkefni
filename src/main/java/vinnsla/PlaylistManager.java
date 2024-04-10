@@ -51,4 +51,12 @@ public class PlaylistManager {
         }
         return playlists;
     }
+
+    //notað fyrir aðferðina í playlistController til að eyða playlista
+    public static void removePlaylist(Playlist playlist) {
+        List<Playlist> playlists = loadPlaylists();
+        playlists.remove(playlist);
+        savePlaylists(playlists);
+    }
+
 }
