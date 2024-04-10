@@ -33,5 +33,4 @@ public class Playlist implements Serializable {
         this.songPaths = songPaths;
     }
 
-    // You can add other methods as needed (e.g., removeSong)
 }

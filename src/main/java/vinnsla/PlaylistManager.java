@@ -1,23 +1,25 @@
 package vinnsla;
 
-import vinnsla.Playlist;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PlaylistManager {
-    public static final String PLAYLISTS_DIRECTORY = "playlists";
+    public static final String PLAYLISTSFOLDER = "playlists";
 
+    /*
+    aðferð sem vistar playlistana í möppuni fyrir playlist en ef notandi er ekki
+    búin að keyra forritið áður þá er búið til nýja möppu
+     */
     public static void savePlaylists(List<Playlist> playlists) {
-        File directory = new File(PLAYLISTS_DIRECTORY);
+        File directory = new File(PLAYLISTSFOLDER);
         if (!directory.exists()) {
-            directory.mkdirs(); // Create the directory if it doesn't exist
+            directory.mkdirs();
         }
 
         for (Playlist playlist : playlists) {
-            String fileName = playlist.getName() + ".ser"; // Use playlist name and ".ser" extension
-            String filePath = PLAYLISTS_DIRECTORY + File.separator + fileName;
+            String fileName = playlist.getName() + ".ser";
+            String filePath = PLAYLISTSFOLDER + File.separator + fileName;
             try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(filePath))) {
                 outputStream.writeObject(playlist);
             } catch (IOException e) {
@@ -26,14 +28,16 @@ public class PlaylistManager {
         }
     }
 
+
+    //hin aðferðin vistar og þessi hleður niður "loadar"
     @SuppressWarnings("unchecked")
     public static List<Playlist> loadPlaylists() {
         List<Playlist> playlists = new ArrayList<>();
-        File directory = new File(PLAYLISTS_DIRECTORY);
+        File directory = new File(PLAYLISTSFOLDER);
         File[] playlistFiles = directory.listFiles();
         if (playlistFiles != null) {
             for (File file : playlistFiles) {
-                if (file.isFile() && file.getName().endsWith(".ser")) { // Check for ".ser" extension
+                if (file.isFile() && file.getName().endsWith(".ser")) {
                     try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(file))) {
                         Object obj = inputStream.readObject();
                         if (obj instanceof Playlist) {

@@ -26,16 +26,16 @@ public class SceneSwitcher {
         stage.show();
     }
 
+    /*
+    Svipuð aðgerð til að skipta á milli scene nema þessi er fyrir playlistana
+    nottar nokkra hluti úr playlistcontroller klasanum til þess að geta opnað scene
+    hjá hverjum og einum playlista sér
+     */
     public void switchScenePlaylists(ActionEvent event, String fxmlFileName, Playlist selectedPlaylist, String playlistFilePath) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
-        Parent root = loader.load(); // Load the FXML file
-
+        Parent root = loader.load();
         Scene scene = new Scene(root);
-
-        // Get the PlaylistController instance from the FXMLLoader (moved here)
         PlaylistController playlistController = loader.getController();
-
-        // Set the current playlist in the PlaylistController
         playlistController.setPlaylist(selectedPlaylist);
         playlistController.setPlaylistFilePath(playlistFilePath);
 

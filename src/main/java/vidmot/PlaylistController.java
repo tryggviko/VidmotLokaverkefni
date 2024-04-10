@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import vidmot.SceneSwitcher;
 import vinnsla.Playlist;
 import vinnsla.PlaylistManager;
 
@@ -21,16 +20,12 @@ public class PlaylistController {
 
     private Playlist currentPlaylist;
 
-    private static final String PLAYLISTS_DIRECTORY = "playlists";
+    //Playlist mapan sem mun geyma playlistana
+    private static final String PLAYLISTS = "playlists";
     private String playlistFileName;
-
     private String playlistFilePath;
 
-    // Set the file name for the current playlist
-    public void setPlaylistFileName(String playlistFileName) {
-        this.playlistFileName = playlistFileName;
-    }
-
+    // setur slóðina á current playlista
     public void setPlaylistFilePath(String playlistFilePath) {
         this.playlistFilePath = playlistFilePath;
     }
@@ -39,17 +34,17 @@ public class PlaylistController {
         loadPlaylistFromFile();
     }
 
+    // Hleður gögnunum frá núverandi playlista (lögum)
     private void loadPlaylistFromFile() {
-        // Load playlist data from file
+
         List<Playlist> playlists = PlaylistManager.loadPlaylists();
         if (!playlists.isEmpty()) {
-            // Assuming the first playlist is the current playlist
             currentPlaylist = playlists.get(0);
             updateSongsList();
         }
     }
 
-    // Set the playlist and load its data if the file name is provided
+    // ef nafn files er til staðar þá hleður gögnum frá því skajli
     public void setPlaylist(Playlist playlist) {
         if (playlist == null) {
             this.currentPlaylist = new Playlist("New Playlist");
@@ -62,21 +57,24 @@ public class PlaylistController {
         updateSongsList();
     }
 
-    // Update the UI with the songs of the current playlist
+    /*
+    mikilvægt fall sem hleður inn lögunum í playlistanum
+    og nær nafni skjalf frá absolute path,
+    svo nafn lags sjáist
+     */
     private void updateSongsList() {
         songsVBox.getChildren().clear();
         for (String songPath : currentPlaylist.getSongPaths()) {
-            // Extract the file name from the absolute path
             String fileName = new File(songPath).getName();
             Button songButton = new Button(fileName);
             songsVBox.getChildren().add(songButton);
         }
     }
 
-    // Load playlist data from file
+    // nær í lögin frá pathinu þeirra
     private void loadPlaylistDataFromFile(String playlistFileName) {
         List<String> songPaths = new ArrayList<>();
-        File playlistFile = new File(PLAYLISTS_DIRECTORY, playlistFileName);
+        File playlistFile = new File(PLAYLISTS, playlistFileName);
         try (BufferedReader reader = new BufferedReader(new FileReader(playlistFile))) {
             String songPath;
             while ((songPath = reader.readLine()) != null) {
@@ -88,7 +86,7 @@ public class PlaylistController {
         }
     }
 
-    // Switch to home view
+    // Switch to home (úr sceneswithcer)
     @FXML
     public void switchToHome(ActionEvent event) {
         try {
@@ -99,9 +97,13 @@ public class PlaylistController {
         }
     }
 
-    // Handle adding songs to the playlist
+    /*
+    fallið sem sér um að setja lögin inn í playlistana
+    inniheldur bara filchooser til að notandi geti náð í lögin í tölvuna sína
+    síðan helur fallið laginu inn sem hnappi í playlistan
+     */
     @FXML
-    public void handleAddSongs() {
+    public void addSongs() {
         if (currentPlaylist == null) {
             System.out.println("Please select a playlist first!");
             return;
@@ -125,14 +127,14 @@ public class PlaylistController {
     }
 
 
-    // Save the playlist to a file
+
     private void savePlaylistToFile(Playlist playlist) {
         List<Playlist> playlists = new ArrayList<>();
         playlists.add(playlist);
         PlaylistManager.savePlaylists(playlists);
     }
 
-    // Add a song button to the VBox
+
     private void addSongToVBox(String songName) {
         Button songButton = new Button(songName);
         songsVBox.getChildren().add(songButton);

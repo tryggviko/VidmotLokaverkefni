@@ -11,7 +11,7 @@
          <children>
             <Button layoutY="1.0" mnemonicParsing="false" onAction="#switchToHome" text="Home" />
             <Button layoutX="52.0" layoutY="1.0" mnemonicParsing="false" text="Button" />
-            <Button layoutX="104.0" layoutY="1.0" mnemonicParsing="false" onAction="#handleAddSongs" text="new song" />
+            <Button layoutX="104.0" layoutY="1.0" mnemonicParsing="false" onAction="#addSongs" text="new song" />
             <VBox fx:id="songsVBox" layoutX="2.0" layoutY="69.0" prefHeight="329.0" prefWidth="213.0" />
          </children></AnchorPane>
   </content>
