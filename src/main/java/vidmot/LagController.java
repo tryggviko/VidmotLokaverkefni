@@ -105,6 +105,7 @@ public class LagController {
     @FXML
     private void switchToHome(ActionEvent event) {
         try {
+            mediaPlayer.stop();
             SceneSwitcher sceneSwitcher = new SceneSwitcher();
             sceneSwitcher.switchScene(event, "home-view.fxml");
         } catch (IOException e) {

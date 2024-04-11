@@ -50,10 +50,8 @@ public class HomeController {
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif", "*.jpeg")
         );
 
-        // Show open file dialog
         File selectedFile = fileChooser.showOpenDialog(profileImage.getScene().getWindow());
         if (selectedFile != null) {
-            // Load the selected image into the ImageView
             Image image = new Image(selectedFile.toURI().toString());
             profileButton.setVisible(false);
             profileImage.setImage(image);
