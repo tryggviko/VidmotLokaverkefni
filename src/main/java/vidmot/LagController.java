@@ -5,7 +5,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import vinnsla.Playlist;
@@ -27,6 +29,8 @@ public class LagController {
 
     private Playlist currentPlaylist;
     private List<String> songPaths;
+    @FXML
+    private Slider volumeSlider;
     private int currentSongIndex = 0;
 
     private Media media;
@@ -40,6 +44,13 @@ public class LagController {
         playSong();
     }
 
+    @FXML
+    private void changeVolume(MouseEvent event) {
+        if (mediaPlayer != null) {
+            mediaPlayer.setVolume(volumeSlider.getValue());
+        }
+    }
+
     private void playSong() {
         if (currentSongIndex < songPaths.size()) {
             String songPath = songPaths.get(currentSongIndex);
@@ -48,6 +59,7 @@ public class LagController {
 
             media = new Media(new File(songPath).toURI().toString());
             mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.volumeProperty().bindBidirectional(volumeSlider.valueProperty());
             mediaPlayer.play();
             startTimer();
         }

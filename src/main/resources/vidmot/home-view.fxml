@@ -14,9 +14,9 @@
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: gray;" stylesheets="@home.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vidmot.HomeController">
    <children>
-      <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="400.0" prefWidth="311.0">
+      <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="400.0" prefWidth="311.0" style="-fx-background-color: gray;">
          <content>
-            <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: gray;">
+            <VBox prefHeight="200.0" prefWidth="317.0" style="-fx-background-color: gray;">
                <children>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
@@ -29,11 +29,11 @@
                         </Button>
                      </children>
                   </AnchorPane>
-                  <Label prefHeight="33.0" prefWidth="143.0" text="Username" textFill="#f4f2f2">
+                  <Label prefHeight="33.0" prefWidth="113.0" text="Username" textFill="#f4f2f2">
                      <font>
                         <Font name="System Bold" size="19.0" />
                      </font></Label>
-                  <Button mnemonicParsing="false" onAction="#toLogInScreen" text="Log In" />
+                  <Button mnemonicParsing="false" onAction="#toLogInScreen" prefHeight="27.0" prefWidth="64.0" text="Log In" />
                </children>
             </VBox>
          </content>
@@ -51,7 +51,7 @@
                   </VBox>
             </ScrollPane>
             <TextField fx:id="playlistTextField" promptText="Enter playlist name" styleClass="text-field" stylesheets="@home.css" />
-            <Button fx:id="createPlaylistButton" onAction="#createPlaylist" styleClass="rounded-button" stylesheets="@home.css" text="Create">
+            <Button fx:id="createPlaylistButton" maxHeight="73.0" minWidth="51.0" onAction="#createPlaylist" prefHeight="73.0" prefWidth="51.0" styleClass="rounded-button" stylesheets="@home.css" text="Create">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets></Button>
