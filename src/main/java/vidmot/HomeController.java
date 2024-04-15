@@ -37,8 +37,15 @@ public class HomeController {
 
     private final SceneSwitcher sceneSwitcher = new SceneSwitcher();
 
+    private String username;
+
     public void initialize() {
         updatePlaylistsContain();
+    }
+
+    public void setUserName(String username) {
+        this.username = username;
+        usernamLabel.setText(username); // Update the label with the username
     }
 
 

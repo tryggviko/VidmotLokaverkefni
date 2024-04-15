@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
@@ -31,6 +32,8 @@ public class LagController {
     private List<String> songPaths;
     @FXML
     private Slider volumeSlider;
+    @FXML
+    private Button playButtong;
     private int currentSongIndex = 0;
 
     private Media media;
@@ -42,6 +45,9 @@ public class LagController {
         this.currentPlaylist = playlist;
         this.songPaths = songPaths;
         playSong();
+        File file = new File("src/main/resources/images/musicImage.png");
+        Image img = new Image(file.toURI().toString());
+        image.setImage(img);
     }
 
     @FXML
@@ -70,8 +76,11 @@ public class LagController {
         if (mediaPlayer != null) {
             if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
                 mediaPlayer.pause();
+                playButtong.setText("play");
+
             } else {
                 mediaPlayer.play();
+                playButtong.setText("pause");
             }
         }
     }

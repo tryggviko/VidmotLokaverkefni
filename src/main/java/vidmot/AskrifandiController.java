@@ -51,7 +51,8 @@ public class AskrifandiController {
         if(getUserName() != null){
             personalName = getUserName();
             try {
-                sceneSwitcher.switchScene(event, "home-view.fxml");
+                HomeController homeController = sceneSwitcher.switchSceneLogIn(event, "home-view.fxml");
+                homeController.setUserName(getUserName());
             } catch (IOException e) {
                 e.printStackTrace();
             }
